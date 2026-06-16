@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://hud"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud_script")
+
+[node name="PlayersPanel" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 230.0
+offset_bottom = 400.0
+
+[node name="PlayersContainer" type="VBoxContainer" parent="PlayersPanel"]
+layout_mode = 2
+
+[node name="GamePanel" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -110.0
+offset_right = 220.0
+offset_bottom = -8.0
+
+[node name="VBox" type="VBoxContainer" parent="GamePanel"]
+layout_mode = 2
+
+[node name="DiceLabel" type="Label" parent="GamePanel/VBox"]
+layout_mode = 2
+text = "🎲 Нажмите «Бросить»"
+horizontal_alignment = 1
+
+[node name="PhaseLabel" type="Label" parent="GamePanel/VBox"]
+layout_mode = 2
+text = "Ожидание..."
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="GamePanel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="RollButton" type="Button" parent="GamePanel/VBox/Buttons"]
+layout_mode = 2
+text = "🎲 Бросить кубики"
+custom_minimum_size = Vector2(180, 40)
+
+[node name="EndTurnButton" type="Button" parent="GamePanel/VBox/Buttons"]
+layout_mode = 2
+text = "✅ Завершить ход"
+custom_minimum_size = Vector2(160, 40)
+disabled = true
+
+[node name="LogPanel" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -340.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="LogLabel" type="RichTextLabel" parent="LogPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 300)
+scroll_following = true
+bbcode_enabled = true
+text = "[color=gray]Лог событий[/color]\n"

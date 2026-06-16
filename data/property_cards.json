@@ -1,0 +1,110 @@
+[
+  {
+	"cell_index": 1,
+	"name": "Platinum-стол (Кости)",
+	"color_group": "PURPLE",
+	"price": 400,
+	"rent": [25, 50, 100, 200, 400],
+	"hotel_price": 400,
+	"mortgage_value": 200
+  },
+  {
+	"cell_index": 3,
+	"name": "Gold-стол (Кости)",
+	"color_group": "PURPLE",
+	"price": 600,
+	"rent": [35, 70, 140, 280, 560],
+	"hotel_price": 400,
+	"mortgage_value": 300
+  },
+  {
+	"cell_index": 5,
+	"name": "Platinum-стол (Домино)",
+	"color_group": "BLUE",
+	"price": 800,
+	"rent": [50, 100, 200, 400, 800],
+	"hotel_price": 600,
+	"mortgage_value": 400
+  },
+  {
+	"cell_index": 7,
+	"name": "Gold-стол (Домино)",
+	"color_group": "BLUE",
+	"price": 1000,
+	"rent": [60, 120, 240, 480, 960],
+	"hotel_price": 600,
+	"mortgage_value": 500
+  },
+  {
+	"cell_index": 9,
+	"name": "Platinum-стол (Лото)",
+	"color_group": "GREEN",
+	"price": 1200,
+	"rent": [75, 150, 300, 600, 1200],
+	"hotel_price": 800,
+	"mortgage_value": 600
+  },
+  {
+	"cell_index": 11,
+	"name": "Gold-стол (Лото)",
+	"color_group": "GREEN",
+	"price": 1400,
+	"rent": [90, 180, 360, 720, 1440],
+	"hotel_price": 800,
+	"mortgage_value": 700
+  },
+  {
+	"cell_index": 13,
+	"name": "Platinum-стол (Рулетка)",
+	"color_group": "YELLOW",
+	"price": 1600,
+	"rent": [100, 200, 400, 800, 1600],
+	"hotel_price": 1000,
+	"mortgage_value": 800
+  },
+  {
+	"cell_index": 15,
+	"name": "Gold-стол (Рулетка)",
+	"color_group": "YELLOW",
+	"price": 1800,
+	"rent": [110, 220, 440, 880, 1760],
+	"hotel_price": 1000,
+	"mortgage_value": 900
+  },
+  {
+	"cell_index": 17,
+	"name": "Platinum-стол (Покер)",
+	"color_group": "ORANGE",
+	"price": 2000,
+	"rent": [125, 250, 500, 1000, 2000],
+	"hotel_price": 1200,
+	"mortgage_value": 1000
+  },
+  {
+	"cell_index": 19,
+	"name": "Gold-стол (Покер)",
+	"color_group": "ORANGE",
+	"price": 2200,
+	"rent": [140, 280, 560, 1120, 2240],
+	"hotel_price": 1200,
+	"mortgage_value": 1100
+  },
+  {
+	"cell_index": 21,
+	"name": "Platinum-стол (Блэкджек)",
+	"color_group": "RED",
+	"price": 2400,
+	"rent": [150, 300, 600, 1200, 2400],
+	"hotel_price": 1400,
+	"mortgage_value": 1200
+  },
+  {
+	"cell_index": 23,
+	"name": "Gold-стол (Блэкджек)",
+	"color_group": "RED",
+	"price": 2600,
+	"rent": [175, 350, 700, 1400, 2800],
+	"hotel_price": 1400,
+	"mortgage_value": 1300
+  }
+]

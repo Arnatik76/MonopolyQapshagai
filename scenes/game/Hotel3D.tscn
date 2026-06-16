@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://hotel3d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hotel"]
+size = Vector3(0.18, 0.18, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="Mat_hotel"]
+albedo_color = Color(0.9, 0.1, 0.1, 1)
+metallic = 0.2
+roughness = 0.6
+
+[node name="Hotel3D" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_hotel")
+surface_material_override/0 = SubResource("Mat_hotel")

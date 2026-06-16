@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://diceroller3d"]
+
+[ext_resource type="Script" uid="uid://dtfr6rue0n68e" path="res://scripts/game/DiceRoller3D.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_die"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_die"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_die"]
+albedo_color = Color(0.95, 0.95, 0.95, 1)
+roughness = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape_table"]
+size = Vector3(30, 0.05, 30)
+
+[node name="DiceRoller3D" type="Node3D" unique_id=735730190]
+script = ExtResource("1_script")
+
+[node name="Dice1" type="RigidBody3D" parent="." unique_id=31824635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 2, 0)
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dice1" unique_id=1899369671]
+shape = SubResource("BoxShape_die")
+
+[node name="DiceMesh" type="MeshInstance3D" parent="Dice1" unique_id=1629284032]
+mesh = SubResource("BoxMesh_die")
+surface_material_override/0 = SubResource("Mat_die")
+
+[node name="Dice2" type="RigidBody3D" parent="." unique_id=1750997087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 2, 0)
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dice2" unique_id=207132591]
+shape = SubResource("BoxShape_die")
+
+[node name="DiceMesh" type="MeshInstance3D" parent="Dice2" unique_id=1646232204]
+mesh = SubResource("BoxMesh_die")
+surface_material_override/0 = SubResource("Mat_die")
+
+[node name="DiceTable" type="StaticBody3D" parent="." unique_id=355001598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceTable" unique_id=54337751]
+shape = SubResource("BoxShape_table")

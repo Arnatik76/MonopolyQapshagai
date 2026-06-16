@@ -1,0 +1,40 @@
+# Godot 4 generated files
+.godot/
+
+# Импортированные ресурсы (генерируются у каждого локально)
+.import/
+*.import
+
+# Билды и экспорт
+builds/
+export_presets.cfg
+android/
+*.pck
+*.exe
+*.x86_64
+*.app
+
+# Mono / C# (не используется, но на всякий случай)
+.mono/
+data_*/
+mono_crash.*.json
+
+# OS
+.DS_Store
+._*
+*~
+Thumbs.db
+desktop.ini
+
+# Редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Временные файлы
+*.tmp
+*.log
+
+.claude
+CLAUDE.md

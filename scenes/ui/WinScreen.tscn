@@ -1,0 +1,56 @@
+[gd_scene load_steps=1 format=3 uid="uid://winscreen"]
+
+[node name="WinScreen" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="CenterPanel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -180.0
+offset_right = 280.0
+offset_bottom = 180.0
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="TrophyLabel" type="Label" parent="CenterPanel/VBox"]
+layout_mode = 2
+text = "🏆"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+
+[node name="WinnerLabel" type="Label" parent="CenterPanel/VBox"]
+layout_mode = 2
+text = "ПОБЕДИТЕЛЬ!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="PlayerNameLabel" type="Label" parent="CenterPanel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="PlayAgainButton" type="Button" parent="CenterPanel/VBox"]
+layout_mode = 2
+text = "🔄 Играть снова"
+custom_minimum_size = Vector2(200, 50)
+
+[node name="MainMenuButton" type="Button" parent="CenterPanel/VBox"]
+layout_mode = 2
+text = "🏠 Главное меню"
+custom_minimum_size = Vector2(200, 50)

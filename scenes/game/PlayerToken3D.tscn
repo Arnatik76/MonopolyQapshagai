@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://player_token3d"]
+
+[ext_resource type="Script" path="res://scripts/game/PlayerToken3D.gd" id="1_script"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_token"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.45
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_glow"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.02
+
+[node name="PlayerToken3D" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="TokenMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_token")
+position = Vector3(0, 0.225, 0)
+
+[node name="GlowRing" type="OmniLight3D" parent="."]
+position = Vector3(0, 0.1, 0)
+light_energy = 2.0
+omni_range = 0.8
+
+[node name="NameLabel" type="Label3D" parent="."]
+position = Vector3(0, 0.7, 0)
+billboard = 1
+font_size = 32
+text = "Игрок"

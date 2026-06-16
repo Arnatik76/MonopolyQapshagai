@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://main"]
+
+[ext_resource type="PackedScene" path="res://scenes/game/Board3D.tscn" id="1_board"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="2_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BuyDialog.tscn" id="3_buydialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/CardPopup.tscn" id="4_cardpopup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/WinScreen.tscn" id="5_winscreen"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="6_main_script"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("6_main_script")
+
+[node name="Board3D" parent="." instance=ExtResource("1_board")]
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="BuyDialog" parent="." instance=ExtResource("3_buydialog")]
+
+[node name="CardPopup" parent="." instance=ExtResource("4_cardpopup")]
+
+[node name="WinScreen" parent="." instance=ExtResource("5_winscreen")]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://cardpopup"]
+
+[ext_resource type="Script" path="res://scripts/ui/CardPopup.gd" id="1_script"]
+
+[node name="CardPopup" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+visible = false
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+mouse_filter = 0
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -220.0
+offset_right = 200.0
+offset_bottom = 220.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="CardImage" type="TextureRect" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(180, 120)
+expand_mode = 1
+stretch_mode = 6
+visible = false
+
+[node name="CardTitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="CardDesc" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="OKButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "✅ Принять"
+custom_minimum_size = Vector2(0, 45)

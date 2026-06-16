@@ -1,0 +1,86 @@
+[
+  {
+	"type": "CHANCE",
+	"title": "Джекпот!",
+	"description": "Получите 500М от банка",
+	"effect_type": "GET_MONEY",
+	"effect_value": 500
+  },
+  {
+	"type": "CHANCE",
+	"title": "Налоговый штраф",
+	"description": "Заплатите 300М банку",
+	"effect_type": "PAY_MONEY",
+	"effect_value": 300
+  },
+  {
+	"type": "CHANCE",
+	"title": "Выигрыш в покере",
+	"description": "Получите 200М от каждого игрока",
+	"effect_type": "GET_FROM_EACH",
+	"effect_value": 200
+  },
+  {
+	"type": "CHANCE",
+	"title": "Угощение за столом",
+	"description": "Заплатите 150М каждому игроку",
+	"effect_type": "PAY_EACH_PLAYER",
+	"effect_value": 150
+  },
+  {
+	"type": "CHANCE",
+	"title": "Тайный агент",
+	"description": "Немедленно идите в тюрьму",
+	"effect_type": "GO_TO_JAIL",
+	"effect_value": 0
+  },
+  {
+	"type": "CHANCE",
+	"title": "Адвокат в кармане",
+	"description": "Карта выхода из тюрьмы. Храните до использования",
+	"effect_type": "GET_OUT_OF_JAIL",
+	"effect_value": 0
+  },
+  {
+	"type": "CHANCE",
+	"title": "Счастливая семёрка",
+	"description": "Пропустите следующий ход",
+	"effect_type": "SKIP_TURN",
+	"effect_value": 0
+  },
+  {
+	"type": "CHANCE",
+	"title": "Ремонт заведений",
+	"description": "Заплатите 100М за каждый свой отель",
+	"effect_type": "PAY_PER_HOTEL",
+	"effect_value": 100
+  },
+  {
+	"type": "CHANCE",
+	"title": "Бонус от казино",
+	"description": "Переместитесь на клетку «Вперёд!» и получите 400М",
+	"effect_type": "MOVE_TO",
+	"effect_value": 0
+  },
+  {
+	"type": "CHANCE",
+	"title": "Короткий путь",
+	"description": "Переместитесь на 3 клетки вперёд",
+	"effect_type": "MOVE_BY",
+	"effect_value": 3
+  },
+  {
+	"type": "CHANCE",
+	"title": "Путь назад",
+	"description": "Переместитесь на 2 клетки назад",
+	"effect_type": "MOVE_BY",
+	"effect_value": -2
+  },
+  {
+	"type": "CHANCE",
+	"title": "VIP-приглашение",
+	"description": "Получите 400М от банка",
+	"effect_type": "GET_MONEY",
+	"effect_value": 400
+  }
+]

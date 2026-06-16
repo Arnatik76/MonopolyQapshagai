@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://board3d"]
+
+[ext_resource type="Script" uid="uid://cx6la6eppxya2" path="res://scripts/game/Board3D.gd" id="1_board_script"]
+[ext_resource type="Texture2D" uid="uid://d2k3mcueh3lsa" path="res://assets/textures/Frame 1.png" id="2_h0cip"]
+[ext_resource type="Script" uid="uid://bt64jlqvof30i" path="res://scripts/game/TurnStateMachine.gd" id="2_tsm_script"]
+[ext_resource type="Script" uid="uid://c06dhx57rw6ah" path="res://scripts/game/CameraController.gd" id="3_cam_script"]
+[ext_resource type="PackedScene" uid="uid://diceroller3d" path="res://scenes/game/DiceRoller3D.tscn" id="4_dice"]
+
+[sub_resource type="Environment" id="Environment_casino"]
+background_mode = 1
+background_color = Color(0.04, 0.1, 0.04, 1)
+ambient_light_color = Color(1, 0.84, 0.5, 1)
+ambient_light_energy = 1.8
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+glow_intensity = 0.8
+glow_bloom = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_table"]
+top_radius = 6.0
+bottom_radius = 6.0
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_table"]
+albedo_color = Color(0.08, 0.35, 0.12, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_board"]
+top_radius = 5.0
+bottom_radius = 5.0
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37gsd"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qpfse"]
+size = Vector2(10, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt1dx"]
+albedo_texture = ExtResource("2_h0cip")
+
+[node name="Board3D" type="Node3D" unique_id=433132242 groups=["board"]]
+script = ExtResource("1_board_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2005149945]
+environment = SubResource("Environment_casino")
+
+[node name="Table" type="MeshInstance3D" parent="." unique_id=1607823326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+mesh = SubResource("CylinderMesh_table")
+surface_material_override/0 = SubResource("Mat_table")
+
+[node name="BoardDisc" type="Node3D" parent="." unique_id=2099028024]
+
+[node name="DiscMesh" type="MeshInstance3D" parent="BoardDisc" unique_id=565555015]
+mesh = SubResource("CylinderMesh_board")
+surface_material_override/0 = SubResource("StandardMaterial3D_37gsd")
+
+[node name="CellMarkers" type="Node3D" parent="BoardDisc" unique_id=753145805]
+
+[node name="BoardTop" type="MeshInstance3D" parent="BoardDisc" unique_id=733314855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026, 0.026, 0.026)
+mesh = SubResource("PlaneMesh_qpfse")
+surface_material_override/0 = SubResource("StandardMaterial3D_kt1dx")
+
+[node name="TokensLayer" type="Node3D" parent="." unique_id=705198877]
+
+[node name="DealersLayer" type="Node3D" parent="." unique_id=1185525650]
+
+[node name="DiceArea" type="Node3D" parent="." unique_id=1169930164]
+
+[node name="DiceRoller3D" parent="DiceArea" unique_id=220330588 instance=ExtResource("4_dice")]
+
+[node name="CardDeck_Chance" type="Node3D" parent="." unique_id=419128082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.1, 0)
+
+[node name="CardDeck_Event" type="Node3D" parent="." unique_id=1601669904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.1, 0)
+
+[node name="Lighting" type="Node3D" parent="." unique_id=649368904]
+
+[node name="AmbientFill" type="DirectionalLight3D" parent="Lighting" unique_id=1448472067]
+transform = Transform3D(0.9999999, 0, 4.371138e-08, -4.3711385e-08, 1.9106853e-15, 0.9999998, 0, -0.99999994, 1.910685e-15, 0, 15, 0)
+light_color = Color(1, 0.9, 0.7, 1)
+light_energy = 1.5
+
+[node name="CellHighlight" type="OmniLight3D" parent="Lighting" unique_id=90945755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 4.2)
+visible = false
+light_color = Color(1, 1, 0.3, 1)
+light_energy = 3.0
+omni_range = 1.5
+
+[node name="TurnStateMachine" type="Node" parent="." unique_id=733785484 groups=["turn_sm"]]
+script = ExtResource("2_tsm_script")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1133209422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 12)
+script = ExtResource("3_cam_script")

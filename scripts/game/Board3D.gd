@@ -9,6 +9,7 @@ extends Node3D
 @onready var dice_roller: Node3D = $DiceArea/DiceRoller3D
 
 const TOKEN_SCENE := preload("res://scenes/game/PlayerToken3D.tscn")
+const BOARD_RENDERER := preload("res://scripts/game/BoardRenderer.gd")
 
 var _tokens: Array[Node3D] = []
 
@@ -31,7 +32,7 @@ func _setup_board_texture() -> void:
 	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child(vp)
 
-	var renderer := load("res://scripts/game/BoardRenderer.gd").new()
+	var renderer := BOARD_RENDERER.new()
 	vp.add_child(renderer)
 
 	# Ждём два кадра — SubViewport должен отрендериться

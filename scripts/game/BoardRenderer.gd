@@ -99,7 +99,7 @@ func _draw_cell_bg(cell: Dictionary) -> void:
 
 	# Цветная полоса для PROPERTY / HOTEL
 	if ctype == "PROPERTY":
-		var stripe := GROUP_COLOR.get(group, BG_CELL)
+		var stripe: Color = GROUP_COLOR.get(group, BG_CELL)
 		draw_colored_polygon(_sector(R_STRIPE, R_OUTER, a0, a1), stripe)
 		_ring_arc(R_STRIPE, a0, a1, 2.0, BORDER_COL)
 
@@ -197,10 +197,10 @@ func _draw_text_single(center_pos: Vector2, rot: float, text: String,
 func _sector(r_in: float, r_out: float, a_from: float, a_to: float) -> PackedVector2Array:
 	var pts := PackedVector2Array()
 	for i in range(ARC_SEGS + 1):
-		var a := lerp(a_from, a_to, float(i) / ARC_SEGS)
+		var a: float = lerp(a_from, a_to, float(i) / ARC_SEGS)
 		pts.append(CENTER + Vector2(cos(a), sin(a)) * r_out)
 	for i in range(ARC_SEGS + 1):
-		var a := lerp(a_to, a_from, float(i) / ARC_SEGS)
+		var a: float = lerp(a_to, a_from, float(i) / ARC_SEGS)
 		pts.append(CENTER + Vector2(cos(a), sin(a)) * r_in)
 	return pts
 
@@ -220,7 +220,7 @@ func _draw_ring(radius: float, width: float, col: Color) -> void:
 func _ring_arc(radius: float, a0: float, a1: float, width: float, col: Color) -> void:
 	var pts := PackedVector2Array()
 	for i in range(ARC_SEGS + 1):
-		var a := lerp(a0, a1, float(i) / ARC_SEGS)
+		var a: float = lerp(a0, a1, float(i) / ARC_SEGS)
 		pts.append(CENTER + Vector2(cos(a), sin(a)) * radius)
 	draw_polyline(pts, col, width, false)
 

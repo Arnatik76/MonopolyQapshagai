@@ -53,8 +53,8 @@ func _on_dice_finished() -> void:
 		if is_double:
 			player.is_in_jail = false
 			player.jail_turns_remaining = 0
+			player.doubles_streak = 3  # выход из тюрьмы дублем не даёт дополнительный ход
 			SignalBus.player_freed.emit(player_index)
-			# Идём на сумму дубля, но без повторного хода за дубль
 			GameState.set_phase(GameState.TurnPhase.MOVING)
 			var target_jail: int = (player.cell_position + a + b) % BoardData.CELL_COUNT
 			_move_player(player_index, target_jail)

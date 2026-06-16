@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://board3d"]
 
 [ext_resource type="Script" uid="uid://cx6la6eppxya2" path="res://scripts/game/Board3D.gd" id="1_board_script"]
-[ext_resource type="Texture2D" uid="uid://d2k3mcueh3lsa" path="res://assets/textures/Frame 1.png" id="2_h0cip"]
 [ext_resource type="Script" uid="uid://bt64jlqvof30i" path="res://scripts/game/TurnStateMachine.gd" id="2_tsm_script"]
 [ext_resource type="Script" uid="uid://c06dhx57rw6ah" path="res://scripts/game/CameraController.gd" id="3_cam_script"]
 [ext_resource type="PackedScene" uid="uid://diceroller3d" path="res://scenes/game/DiceRoller3D.tscn" id="4_dice"]
@@ -37,7 +36,6 @@ height = 0.05
 size = Vector2(10, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt1dx"]
-albedo_texture = ExtResource("2_h0cip")
 
 [node name="Board3D" type="Node3D" unique_id=433132242 groups=["board"]]
 script = ExtResource("1_board_script")
@@ -59,7 +57,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_37gsd")
 [node name="CellMarkers" type="Node3D" parent="BoardDisc" unique_id=753145805]
 
 [node name="BoardTop" type="MeshInstance3D" parent="BoardDisc" unique_id=733314855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026, 0.026, 0.026)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, 0)
 mesh = SubResource("PlaneMesh_qpfse")
 surface_material_override/0 = SubResource("StandardMaterial3D_kt1dx")
 

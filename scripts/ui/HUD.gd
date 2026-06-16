@@ -70,7 +70,6 @@ func _on_turn_started(player_index: int) -> void:
 	_add_log("[color=yellow]Ход игрока: %s[/color]" % player.name)
 
 	_reset_buttons()
-	roll_button.disabled = false
 
 	# Принудительно обновляем все балансы
 	for i in PlayerManager.player_count:
@@ -78,8 +77,19 @@ func _on_turn_started(player_index: int) -> void:
 		if lbl:
 			lbl.text = "%dМ" % PlayerManager.get_balance(i)
 
-	# Обновляем фазу
-	phase_label.text = "Бросайте кубики"
+	if player.is_in_jail:
+		var attempt := 4 - player.jail_turns_remaining
+		_add_log("[color=orange]%s в тюрьме (попытка %d/3)[/color]" % [player.name, attempt])
+		roll_button.text = "Бросить (дубль?)"
+		roll_button.disabled = false
+		end_turn_button.text = "Заплатить 50М"
+		end_turn_button.disabled = false
+		end_turn_button.set_meta("jail_pay", true)
+		end_turn_button.set_meta("jail_player", player_index)
+		phase_label.text = "В тюрьме — попытка %d/3" % attempt
+	else:
+		roll_button.disabled = false
+		phase_label.text = "Бросайте кубики"
 
 	# Выделяем карточку активного игрока
 	for i in _player_cards.size():
@@ -135,6 +145,13 @@ func _on_roll_pressed() -> void:
 		tsm.buy_property(p_idx, cell_idx)
 		return
 
+	if GameState.current_phase == GameState.TurnPhase.JAIL_DECISION:
+		var tsm: Node = get_tree().get_first_node_in_group("turn_sm")
+		if tsm:
+			roll_button.disabled = true
+			tsm.jail_roll_dice()
+		return
+
 	if GameState.current_phase == GameState.TurnPhase.WAIT_FOR_ROLL:
 		get_tree().get_first_node_in_group("board").on_roll_button_pressed()
 
@@ -171,7 +188,14 @@ func _on_end_turn_pressed() -> void:
 	if not tsm:
 		return
 
-	if end_turn_button.has_meta("decline_mode"):
+	if end_turn_button.has_meta("jail_pay"):
+		var p_idx: int = end_turn_button.get_meta("jail_player")
+		end_turn_button.remove_meta("jail_pay")
+		end_turn_button.remove_meta("jail_player")
+		_reset_buttons()
+		tsm.pay_jail_fine(p_idx)
+
+	elif end_turn_button.has_meta("decline_mode"):
 		var cell_idx: int = end_turn_button.get_meta("decline_cell")
 		var p_idx: int = end_turn_button.get_meta("decline_player")
 		end_turn_button.remove_meta("decline_mode")
@@ -199,6 +223,9 @@ func _reset_buttons() -> void:
 		roll_button.remove_meta("buy_player")
 	end_turn_button.text = "Завершить ход"
 	end_turn_button.disabled = true
+	if end_turn_button.has_meta("jail_pay"):
+		end_turn_button.remove_meta("jail_pay")
+		end_turn_button.remove_meta("jail_player")
 
 func _on_game_message(text: String) -> void:
 	_add_log("[color=gray]%s[/color]" % text)

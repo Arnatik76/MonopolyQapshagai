@@ -19,8 +19,38 @@ func _ready() -> void:
 	SignalBus.player_moved.connect(_on_player_moved)
 	SignalBus.move_player_requested.connect(_on_move_player_requested)
 
-	# Передаём dice_roller машине состояний
 	turn_state_machine.set_dice_roller(dice_roller)
+	_setup_board_texture()
+
+func _setup_board_texture() -> void:
+	# Создаём SubViewport 2048×2048 с процедурной отрисовкой поля
+	var vp := SubViewport.new()
+	vp.name = "BoardViewport"
+	vp.size = Vector2i(2048, 2048)
+	vp.transparent_bg = false
+	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(vp)
+
+	var renderer := load("res://scripts/game/BoardRenderer.gd").new()
+	vp.add_child(renderer)
+
+	# Ждём два кадра — SubViewport должен отрендериться
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	# Применяем текстуру к BoardTop (PlaneMesh поверх диска)
+	var board_top := get_node_or_null("BoardDisc/BoardTop") as MeshInstance3D
+	if board_top:
+		var mat := StandardMaterial3D.new()
+		mat.albedo_texture = vp.get_texture()
+		# Убираем ambient_occlusion чтобы тёмные участки не были слишком тёмными
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		board_top.set_surface_override_material(0, mat)
+		# После применения можно остановить обновление (поле статично)
+		vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+		print("Board3D: текстура поля применена")
+	else:
+		push_error("Board3D: нода BoardDisc/BoardTop не найдена")
 
 func spawn_tokens() -> void:
 	# Вызывается после setup_players() в PlayerManager

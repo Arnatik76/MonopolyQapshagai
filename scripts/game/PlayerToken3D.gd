@@ -33,9 +33,11 @@ func setup(index: int) -> void:
 	# Имя над фишкой
 	name_label.text = player.name
 
-	# Начальная позиция — клетка 0
-	global_position = BoardData.get_cell_world_pos(0)
-	global_position.y = 0.5
+	# Начальная позиция — клетка 0, небольшое смещение по игрокам чтобы не стакались
+	var base := BoardData.get_cell_world_pos(0)
+	var tangent := Vector3(-base.z, 0.0, base.x).normalized()
+	var spread := (float(player_index) - 0.5) * 0.22
+	global_position = Vector3(base.x + tangent.x * spread, 0.08, base.z + tangent.z * spread)
 
 func _on_turn_started(idx: int) -> void:
 	# Только активный игрок светится
@@ -59,7 +61,7 @@ func move_to_cell(target_cell: int) -> void:
 			PlayerManager.add_balance(player_index, 200)
 
 		var target_pos := BoardData.get_cell_world_pos(next_cell)
-		target_pos.y = 0.5
+		target_pos.y = 0.08
 
 		# Прыжок дугой через верх
 		var mid_pos: Vector3 = global_position.lerp(target_pos, 0.5)

@@ -56,6 +56,11 @@ text = "✅ Завершить ход"
 custom_minimum_size = Vector2(160, 40)
 disabled = true
 
+[node name="CamButton" type="Button" parent="GamePanel/VBox"]
+layout_mode = 2
+text = "Вид: Обзор поля"
+custom_minimum_size = Vector2(0, 28)
+
 [node name="LogPanel" type="PanelContainer" parent="."]
 anchors_preset = 3
 anchor_left = 1.0

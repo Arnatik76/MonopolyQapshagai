@@ -1,62 +1,65 @@
 extends Camera3D
 
-# Орбитальная камера над игровым столом
+# Орбитальная камера — два режима: обзор поля и слежение за игроком
 
 const DEFAULT_DISTANCE := 12.0
-const DEFAULT_ELEVATION := 55.0
-const MIN_DISTANCE := 6.0
-const MAX_DISTANCE := 20.0
+const DEFAULT_PITCH    := 55.0
+const FOLLOW_DISTANCE  := 7.5
+const FOLLOW_PITCH     := 42.0
+const MIN_DISTANCE     := 4.0
+const MAX_DISTANCE     := 22.0
 
-var yaw := 0.0
-var pitch := 55.0
-var distance := DEFAULT_DISTANCE
+var yaw          := 0.0
+var pitch        := DEFAULT_PITCH
+var distance     := DEFAULT_DISTANCE
 var focus_target := Vector3.ZERO
+var follow_mode  := false
 
 func _ready() -> void:
+	add_to_group("camera_controller")
 	SignalBus.camera_focus_requested.connect(_on_focus_requested)
-	_update_transform()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			distance = clamp(distance - 1.0, MIN_DISTANCE, MAX_DISTANCE)
-			_update_transform()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			distance = clamp(distance + 1.0, MIN_DISTANCE, MAX_DISTANCE)
-			_update_transform()
-
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		yaw -= event.relative.x * 0.3
-		pitch = clamp(pitch - event.relative.y * 0.2, 20.0, 80.0)
-		_update_transform()
+		yaw   -= event.relative.x * 0.3
+		pitch  = clamp(pitch - event.relative.y * 0.2, 15.0, 80.0)
 
-func _process(_delta: float) -> void:
-	# Клавишное вращение
-	var rotate_speed := 60.0 * _delta
+func _process(delta: float) -> void:
+	var speed := 60.0 * delta
 	if Input.is_action_pressed("rotate_camera_left"):
-		yaw += rotate_speed
-		_update_transform()
+		yaw += speed
 	elif Input.is_action_pressed("rotate_camera_right"):
-		yaw -= rotate_speed
-		_update_transform()
+		yaw -= speed
+	_update_transform()
 
 func _on_focus_requested(target: Vector3) -> void:
-	focus_on(target)
+	if follow_mode:
+		_animate_to(target, FOLLOW_DISTANCE, FOLLOW_PITCH)
 
-func focus_on(world_pos: Vector3, duration := 0.6) -> void:
-	var tween := create_tween()
-	tween.tween_property(self, "focus_target", world_pos, duration).set_trans(Tween.TRANS_SINE)
-	tween.connect("finished", _update_transform)
+func set_follow_mode(enabled: bool) -> void:
+	follow_mode = enabled
+	if follow_mode:
+		var player := PlayerManager.get_player(PlayerManager.current_player_index)
+		if player:
+			var pos := BoardData.get_cell_world_pos(player.cell_position)
+			_animate_to(pos, FOLLOW_DISTANCE, FOLLOW_PITCH)
+	else:
+		_animate_to(Vector3.ZERO, DEFAULT_DISTANCE, DEFAULT_PITCH)
+
+func _animate_to(target: Vector3, to_dist: float, to_pitch: float, duration := 0.55) -> void:
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "focus_target", target, duration).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "distance",     to_dist, duration).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "pitch",        to_pitch, duration).set_trans(Tween.TRANS_SINE)
 
 func _update_transform() -> void:
-	var yaw_rad := deg_to_rad(yaw)
-	var pitch_rad := deg_to_rad(pitch)
-
-	var offset := Vector3(
-		cos(pitch_rad) * sin(yaw_rad),
-		sin(pitch_rad),
-		cos(pitch_rad) * cos(yaw_rad)
-	) * distance
-
+	var yr := deg_to_rad(yaw)
+	var pr := deg_to_rad(pitch)
+	var offset := Vector3(cos(pr) * sin(yr), sin(pr), cos(pr) * cos(yr)) * distance
 	global_position = focus_target + offset
 	look_at(focus_target, Vector3.UP)

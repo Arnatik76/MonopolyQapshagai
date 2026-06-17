@@ -2,7 +2,7 @@ extends Node
 
 # Загружает данные клеток из JSON и предоставляет доступ к ним
 
-const BOARD_RADIUS := 5.0
+const BOARD_RADIUS := 3.9
 const CELL_COUNT := 36
 const CELLS_JSON_PATH := "res://data/board_cells.json"
 const CARDS_JSON_PATH := "res://data/chance_cards.json"
@@ -119,8 +119,8 @@ func get_cell(index: int) -> BoardCell:
 	return cells[index]
 
 func get_cell_world_pos(cell_index: int) -> Vector3:
-	# Старт снизу (-PI/2), движение по часовой стрелке
-	var angle := (TAU / CELL_COUNT) * cell_index - PI / 2
+	# +0.5 — центр клетки, а не левая граница
+	var angle := (TAU / CELL_COUNT) * (cell_index + 0.5) - PI / 2
 	return Vector3(cos(angle) * BOARD_RADIUS, 0.06, sin(angle) * BOARD_RADIUS)
 
 func _parse_cell_type(s: String) -> BoardCell.CellType:

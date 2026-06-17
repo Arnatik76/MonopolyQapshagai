@@ -223,8 +223,7 @@ func _draw_card(player_index: int, card_type: CardData.CardType) -> void:
 	var card: CardData = cards[randi() % cards.size()]
 	print("[TSM] карта: %s, эффект=%s, значение=%d" % [card.title, card.effect_type, card.effect_value])
 	SignalBus.card_drawn.emit(card, player_index)
-	# CardPopup ещё не реализован — применяем эффект сразу
-	apply_card_effect(card, player_index)
+	# Ждём нажатия OK в CardPopup — он вызовет apply_card_effect()
 
 func apply_card_effect(card: CardData, player_index: int) -> void:
 	SignalBus.card_effect_applied.emit(card, player_index)

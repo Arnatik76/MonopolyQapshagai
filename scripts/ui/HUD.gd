@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var players_container: VBoxContainer = $PlayersPanel/PlayersContainer
 @onready var dice_label: Label = $GamePanel/VBox/DiceLabel
 @onready var phase_label: Label = $GamePanel/VBox/PhaseLabel
+@onready var cam_button: Button = $GamePanel/VBox/CamButton
 
 # Карточки игроков (создаются динамически)
 var _player_cards: Array[Control] = []
@@ -26,6 +27,7 @@ func _ready() -> void:
 
 	roll_button.pressed.connect(_on_roll_pressed)
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
+	cam_button.pressed.connect(_on_cam_button_pressed)
 
 func setup_players() -> void:
 	# Создаём карточку для каждого игрока
@@ -246,3 +248,11 @@ func _make_active_style(color: Color) -> StyleBoxFlat:
 
 func show_phase(phase_text: String) -> void:
 	phase_label.text = phase_text
+
+func _on_cam_button_pressed() -> void:
+	var cam := get_tree().get_first_node_in_group("camera_controller")
+	if not cam:
+		return
+	var new_mode: bool = not (cam.get("follow_mode") as bool)
+	cam.call("set_follow_mode", new_mode)
+	cam_button.text = "Вид: На игрока" if new_mode else "Вид: Обзор поля"
